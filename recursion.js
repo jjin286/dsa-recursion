@@ -1,7 +1,7 @@
 /** product: calculate the product of an array of numbers. */
 
 function product(nums) {
-  if(nums.length === 0) return 1;
+  if (nums.length === 0) return 1;
 
   return nums[0] * product(nums.slice(1));
 }
@@ -9,24 +9,24 @@ function product(nums) {
 /** longest: return the length of the longest word in an array of words. */
 
 function longest(words) {
-  if(words.length === 0) return 0;
+  if (words.length === 0) return 0;
 
   const word = words.pop();
   const currLongest = longest(words);
 
-  if(word.length > currLongest) return word.length
+  if (word.length > currLongest) return word.length;
 
-  return currLongest
+  return currLongest;
 }
 
 /** everyOther: return a string with every other letter. */
 
 function everyOther(str) {
-  if(str.length === 0) return "";
+  if (str.length === 0) return "";
 
   const newString = everyOther(str.slice(1));
 
-  if(str.length % 2 === 0) return newString;
+  if (str.length % 2 === 0) return newString;
 
   return str[0] + newString;
 
@@ -35,13 +35,29 @@ function everyOther(str) {
 /** find: return boolean depending on if val exists in array or not. */
 
 function find(arr, val) {
+  arrCopy = [...arr];
+
+  if (arrCopy.length === 0) return false;
+
+  currVal = arrCopy.pop();
+  if (currVal === val) return true;
+  return find(arrCopy, val);
 
 }
 
 /** isPalindrome: checks whether a string is a palindrome or not. */
 
 function isPalindrome(str) {
+  let newStr = [];
 
+  function _reverse(str, i) {
+    if (i < 0) return;
+    newStr.push(str[i]);
+    _reverse(str, i - 1);
+  };
+
+  _reverse(str, str.length - 1);
+  return (newStr.join('') === str);
 }
 
 /** revString: return a copy of a string, but in reverse. */
