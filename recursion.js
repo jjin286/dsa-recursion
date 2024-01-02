@@ -1,18 +1,34 @@
 /** product: calculate the product of an array of numbers. */
 
 function product(nums) {
+  if(nums.length === 0) return 1;
 
+  return nums[0] * product(nums.slice(1));
 }
 
 /** longest: return the length of the longest word in an array of words. */
 
 function longest(words) {
+  if(words.length === 0) return 0;
 
+  const word = words.pop();
+  const currLongest = longest(words);
+
+  if(word.length > currLongest) return word.length
+
+  return currLongest
 }
 
 /** everyOther: return a string with every other letter. */
 
 function everyOther(str) {
+  if(str.length === 0) return "";
+
+  const newString = everyOther(str.slice(1));
+
+  if(str.length % 2 === 0) return newString;
+
+  return str[0] + newString;
 
 }
 
