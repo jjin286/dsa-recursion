@@ -63,19 +63,42 @@ function isPalindrome(str) {
 /** revString: return a copy of a string, but in reverse. */
 
 function revString(str) {
+  if(str.length === 0) return "";
 
+  return revString(str.slice(1)) + str[0];
 }
 
 /** findIndex: return the index of val in arr (or -1 if val is not present). */
 
 function findIndex(arr, val) {
 
+  function _findIndex(arr, val, i = 0){
+    if(arr[i] === val) return i;
+    if(arr.length - 1 === i) return -1;
+    return _findIndex(arr, val, i + 1)
+  }
+
+  return _findIndex(arr, val);
 }
 
 /** gatherStrings: given an object, return an array of all of the string values. */
 
 function gatherStrings(obj) {
+  let arr = [];
 
+  function _gatherStrings(obj){
+    for(let key in obj){
+      if(typeof obj[key] === 'object'){
+        _gatherStrings(obj[key]);
+      }
+      if(typeof obj[key] === 'string'){
+        arr.push(obj[key]);
+      }
+    }
+  }
+  _gatherStrings(obj);
+
+  return arr;
 }
 
 // FURTHER STUDY
@@ -84,7 +107,16 @@ function gatherStrings(obj) {
  * return true if val is in array, false if not present). */
 
 function binarySearch(arr, val) {
+  function _binarySearch(arr, val, lowerIdx, upperIdx){
+    let middleIdx = Math.floor((lowerIdx + upperIdx) / 2);
 
+    if(val === arr[middleIdx]) return true;
+    if(upperIdx - lowerIdx === 1 || arr.length === 0) return false;
+    if(val > arr[middleIdx]) return _binarySearch(arr, val, middleIdx, upperIdx);
+    if(val < arr[middleIdx]) return _binarySearch(arr, val, lowerIdx, middleIdx);
+  }
+
+  return _binarySearch(arr, val, 0, arr.length);
 }
 
 
@@ -93,6 +125,16 @@ function binarySearch(arr, val) {
 
 function binarySearchIndex(arr, val) {
 
+  function _binarySearchIndex(arr, val, lowerIdx, upperIdx){
+    let middleIdx = Math.floor((lowerIdx + upperIdx) / 2);
+
+    if(val === arr[middleIdx]) return middleIdx;
+    if(upperIdx - lowerIdx === 1 || arr.length === 0) return -1;
+    if(val > arr[middleIdx]) return _binarySearchIndex(arr, val, middleIdx, upperIdx);
+    if(val < arr[middleIdx]) return _binarySearchIndex(arr, val, lowerIdx, middleIdx);
+  }
+
+  return _binarySearchIndex(arr, val, 0, arr.length);
 }
 
 // you might find the above two problems easier if you change the function signature to:
